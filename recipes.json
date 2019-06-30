@@ -1,0 +1,27 @@
+{
+  "Name": [
+    "Noon Panir",
+    "Shivid Polo"
+  ],
+  "Duration": [
+    5,
+    50
+  ],
+  "Class": [
+    ["Breakfast"],
+    ["Lunch", "Dinner"]
+  ],
+  "ListOfIngredients": [
+    {
+      "Bread":140.625,
+      "Walnut":20,
+      "Frischkase":1.5,
+      "Tea":1.75
+    },
+    {
+      "Reis":125,
+      "Dill":2,
+      "Yogurt":200
+    }
+  ]
+}
