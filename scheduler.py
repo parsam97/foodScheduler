@@ -13,8 +13,18 @@ class Inventory():
         """Returns self.inventory DataFrame"""
         return self.inventory
 
-    def selectFiltered(self, column, params):
-        """"""
+    def selectFiltered(self, column, params, inverse=False):
+        """Returns a filtered self.inventory df based on the conditions (column, params)"""
+        if inverse is False:
+            if type(params[0]) is int:
+                return self.inventory[(self.inventory[column]>params[0]) & (self.inventory[column]<params[1])]
+            else:
+                return self.inventory[self.inventory[column].isin(params)]
+        else:
+            if type(params[0]) is int:
+                return self.inventory[(self.inventory[column]<params[0]) | (self.inventory[column]>params[1])]
+            else:
+                return self.inventory[~self.inventory[column].isin(params)]
 
     def changeInWeight(self, df, amt):
         """Takes in a DataFrame (df) and adds the amount (amt) to the 'Weight in store' value of that ingredient"""
@@ -40,10 +50,9 @@ def main():
     with open('recipes.json') as f:
         recipeBook = RecipeBook(json.load(f, object_pairs_hook=OrderedDict))
 
-    inventory.changeInWeight(inventory.getDf(), 1500)
 
-    print(inventory.getDf().head())
-    print(recipeBook.getDf().head())
+    # print(inventory.getDf().head())
+    # print(recipeBook.getDf().head())
 
 if __name__ == "__main__":
     main()
