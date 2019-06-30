@@ -26,10 +26,6 @@ class Inventory():
             else:
                 return self.inventory[~self.inventory[column].isin(params)]
 
-    def changeInWeight(self, df, amt):
-        """Takes in a DataFrame (df) and adds the amount (amt) to the 'Weight in store' value of that ingredient"""
-        mask = (self.inventory['Name'] not in list(df['Name']))
-        self.inventory['Weight in store'] = self.inventory['Name'].apply(lambda x: x+amt if x in list(df['Name']) else x)
 
 
 class RecipeBook():
@@ -51,7 +47,7 @@ def main():
         recipeBook = RecipeBook(json.load(f, object_pairs_hook=OrderedDict))
 
 
-    # print(inventory.getDf().head())
+    print(inventory.getDf().head())
     # print(recipeBook.getDf().head())
 
 if __name__ == "__main__":
