@@ -26,7 +26,16 @@ class Inventory():
             else:
                 return self.inventory[~self.inventory[column].isin(params)]
 
-
+    def portionAte(self, recipe, recipeBookDF):
+        """Takes in the recipe eaten and decreases the weight of the ingredients involved with that recipe in the inventory"""
+        ingredients = recipeBookDF[recipeBookDF['Name'] == recipe]['ListOfIngredients'][0].split(',')
+        print(self.inventory['Weight'])
+        for ingredient in ingredients:
+            ing = ingredient.split(':')[0]
+            amt = float(ingredient.split(':')[1])
+            print(amt)
+            self.inventory.loc[self.inventory['Name'].isin([ing]), 'Weight'] = self.selectFiltered('Name', [ing])['Weight'].map(lambda x: x-amt)
+        print(self.inventory['Weight'])
 
 class RecipeBook():
     """An object holding all recipe elements within a Pandas DataFrame"""
@@ -46,8 +55,9 @@ def main():
     with open('recipes.json') as f:
         recipeBook = RecipeBook(json.load(f, object_pairs_hook=OrderedDict))
 
+    inventory.portionAte('Noon Panir', recipeBook.getDf())
 
-    print(inventory.getDf().head())
+    # print(inventory.getDf().head())
     # print(recipeBook.getDf().head())
 
 if __name__ == "__main__":
