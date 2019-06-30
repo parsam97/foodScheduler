@@ -4,11 +4,12 @@ import csv, pprint
 class Offer:
     def __init__(self):
         self.requirements = {}
-        self.possibilities = []
+        self.possibilities = dfRecipes
         self.impossibilities = {}
-        self.makeOffer()
+        self.makeOffers()
 
     def checkPossibilities(self):
+
         for index, row in dfRecipes.iterrows():
             self.impossibilities[row['name']] = []
             for requirement in row['list_of_ingredients'].split(','):
@@ -27,8 +28,9 @@ class Offer:
 
         return self.possibilities
 
-    def makeOffer(self):
+    def makeOffers(self):
         possibilities = self.checkPossibilities()
+
 
 
 class Ingredient:
@@ -36,10 +38,13 @@ class Ingredient:
         self.name = name
         self.weight = weight
         self.quantity = quantity
+
     def getName(self):
         return self.name
+
     def getWeight(self):
         return self.weight
+
     def getQuantity(self):
         return self.quantity
 
@@ -49,13 +54,16 @@ class Inventory():
         self.buildInventory()
 
     def buildInventory(self):
+        """ Populates self.inventory list with Ingredient objects representing every ingredient """
         for index, row in dfInventory.iterrows():
             self.inventory.append(Ingredient(row['name'],row['weight'],row['quantity']))
 
     def getInventoryList(self):
+        """ Returns self.inventory """
         return self.inventory
 
     def getIngredient(self, name):
+        """ Returns the desired (name) Ingredient object from self.inventory list """
         for ingredient in self.inventory:
             if ingredient.getName() == name:
                 return ingredient
@@ -63,6 +71,7 @@ class Inventory():
                 pass
 
     def amountOf(self, name):
+        """ Returns the weight or quantity attribute of the desired Ingredient object """
         currIngredient = self.getIngredient(name)
         if currIngredient.getWeight() == '':
             return currIngredient.getQuantity()
