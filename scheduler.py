@@ -52,14 +52,15 @@ class Inventory():
         self.inventory = []
         self.buildInventory(inventory)
 
+    def getInventoryList(self):
+        """Returns self.inventory"""
+        return self.inventory
+
     def buildInventory(self, inventory):
         """Populates self.inventory list with Ingredient objects representing every ingredient"""
         for index, row in inventory.iterrows():
             self.inventory.append(Ingredient(row['name'],row['weight'],row['quantity']))
 
-    def getInventoryList(self):
-        """Returns self.inventory"""
-        return self.inventory
 
     def getIngredient(self, name):
         """Returns the desired (name) Ingredient object from self.inventory list"""
@@ -83,7 +84,7 @@ class Recipe():
         self.name = name
         self.duration = duration
         self.class = class
-        self.listOfIngredients = list_of_ingredients
+        self.listOfIngredients = listOfIngredients
 
     def getName(self):
         return self.name
