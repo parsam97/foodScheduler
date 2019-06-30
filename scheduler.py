@@ -47,36 +47,13 @@ class Offer:
 #         return self.quantity
 
 class Inventory():
-    """An object holding all inventory elements"""
+    """An object holding all inventory elements within a Pandas DataFrame"""
     def __init__(self, inventory):
-        self.inventory = []
-        self.buildInventory(inventory)
+        self.inventory = inventory
 
     def getInventoryList(self):
-        """Returns self.inventory"""
+        """Returns self.inventory DataFrame"""
         return self.inventory
-
-    def buildInventory(self, inventory):
-        """Populates self.inventory list with Ingredient objects representing every ingredient"""
-        for index, row in inventory.iterrows():
-            self.inventory.append(Ingredient(row['name'],row['weight'],row['quantity']))
-
-
-    def getIngredient(self, name):
-        """Returns the desired (name) Ingredient object from self.inventory list"""
-        for ingredient in self.inventory:
-            if ingredient.getName() == name:
-                return ingredient
-            else:
-                pass
-
-    def amountOf(self, name):
-        """ Returns the weight or quantity attribute of the desired Ingredient object """
-        desiredIngredient = self.getIngredient(name)
-        if desiredIngredient.getWeight() == '':
-            return desiredIngredient.getQuantity()
-        else:
-            return desiredIngredient.getWeight()
 
 # class Recipe():
 #     """An object representing a single recipe"""
@@ -101,7 +78,7 @@ class Inventory():
 class RecipeBook():
     """An object holding all recipes"""
     def __init__(self, recipes):
-        self.recipes = []
+        self.recipes = recipes
         self.buildRecipeBook(recipes)
 
     def getRecipeBook(self):
@@ -131,13 +108,9 @@ class RecipeBook():
 def main():
     dataAddress = 'Budget.xlsx'
 
-    dfIngredients = pd.read_excel(dataAddress,'Ingredients')
-    dfRecipes = pd.read_excel(dataAddress,'Recipes')
-    dfInventory = pd.read_excel(dataAddress,'Inventory')
-    dfInventory.replace(pd.np.nan, '', regex=True, inplace=True)
-
-    inventory = Inventory(dfInventory)
-    recipeBook = recipeBook(dfRecipes)
+    # dfIngredients = pd.read_excel(dataAddress,'Ingredients')
+    inventory = Inventory(pd.read_excel(dataAddress,'Inventory').replace(pd.np.nan, '', regex=True, inplace=True))
+    recipeBook = recipeBook(pd.read_excel(dataAddress,'Recipes'))
 
     a = Offer()
 
