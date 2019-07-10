@@ -1,5 +1,5 @@
-import pandas as pd
-import csv, pprint
+# import pandas as pd
+import csv, pprint, json
 
 class Inventory():
     """An object holding all inventory elements within a Pandas DataFrame"""
@@ -19,16 +19,21 @@ class RecipeBook():
         """Returns self.inventory DataFrame"""
         return self.recipes
 
-class 
-
 def main():
     dataAddress = 'Budget.xlsx'
 
-    inventory = Inventory(pd.read_excel(dataAddress,'Inventory'))
-    recipeBook = RecipeBook(pd.read_excel(dataAddress,'Recipes'))
+    aa = json.loads('recipes')
+
+
+    inventory = Inventory(json.loads('recipes.json'))
+    recipeBook = RecipeBook(json.loads('inventory.json'))
 
     print(inventory.getDf())
     print(recipeBook.getDf())
 
 if __name__ == "__main__":
     main()
+
+
+with open('helpme.json') as f:
+    f.write(json.dumps({"hi":"bye","hiagain":"byeagain"}))
